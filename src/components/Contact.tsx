@@ -52,7 +52,7 @@ const Contact = () => {
     },
     {
       icon: Mail,
-      label: 'Academic Email',
+      label: 'Email',
       value: 'sachinsingh2156@gmail.com',
       href: 'mailto:sachinsingh2156@gmail.com',
       color: 'hover:text-accent'
@@ -103,118 +103,90 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-8 mb-12">
           {/* Contact Information */}
-          <div className="space-y-8">
-            <Card className="glass p-8">
-              <h3 className="text-2xl font-bold text-primary mb-6">Contact Information</h3>
-              <div className="space-y-6">
-                {contactInfo.map((item, index) => (
-                  <div key={index} className="flex items-center gap-4">
-                    <div className="p-3 bg-primary/10 rounded-lg">
-                      <item.icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <div>
-                      <div className="text-sm text-muted-foreground">{item.label}</div>
-                      {item.href ? (
-                        <a 
-                          href={item.href}
-                          className="text-foreground hover:text-primary transition-colors font-medium"
-                          target={item.href.startsWith('http') ? '_blank' : undefined}
-                          rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                        >
-                          {item.value}
-                        </a>
-                      ) : (
-                        <div className="text-foreground font-medium">{item.value}</div>
-                      )}
-                    </div>
+          <Card className="glass p-6">
+            <h3 className="text-xl font-bold text-primary mb-4">Contact Information</h3>
+            <div className="space-y-4">
+              {contactInfo.map((item, index) => (
+                <div key={index} className="flex items-center gap-3">
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <item.icon className="w-5 h-5 text-primary" />
                   </div>
-                ))}
-              </div>
-            </Card>
-
-            {/* Social Links */}
-            <Card className="glass p-8">
-              <h3 className="text-2xl font-bold text-primary mb-6">Connect With Me</h3>
-              <div className="space-y-4">
-                {socialLinks.map((social, index) => (
-                  <a
-                    key={index}
-                    href={social.href}
-                    target={social.href.startsWith('http') ? '_blank' : undefined} 
-                    rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="flex items-center gap-4 p-4 bg-card/30 rounded-lg hover:bg-card/50 transition-all duration-300 group"
-                  >
-                    <social.icon className={`w-6 h-6 text-muted-foreground ${social.color} transition-colors`} />
-                    <div>
-                      <div className="text-sm text-muted-foreground">{social.label}</div>
-                      <div className="text-foreground font-medium group-hover:text-primary transition-colors">
-                        {social.value}
-                      </div>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </Card>
-
-            {/* Availability Status */}
-            <Card className="glass p-6">
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 bg-terminal-green rounded-full animate-pulse" />
-                <div>
-                  <div className="font-semibold text-terminal-green">Available for Opportunities</div>
-                  <div className="text-sm text-muted-foreground">
-                    Open to full-time roles, internships, and collaborations
+                  <div>
+                    <div className="text-xs text-muted-foreground uppercase tracking-wide">{item.label}</div>
+                    {item.href ? (
+                      <a 
+                        href={item.href}
+                        className="text-foreground hover:text-primary transition-colors font-medium text-sm"
+                        target={item.href.startsWith('http') ? '_blank' : undefined}
+                        rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
+                      <div className="text-foreground font-medium text-sm">{item.value}</div>
+                    )}
                   </div>
                 </div>
+              ))}
+            </div>
+
+            {/* Availability Status */}
+            <div className="mt-6 pt-4 border-t border-primary/20">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-terminal-green rounded-full animate-pulse" />
+                <div className="text-xs font-medium text-terminal-green">Available for Opportunities</div>
               </div>
-            </Card>
-          </div>
+              <div className="text-xs text-muted-foreground mt-1">
+                Open to full-time roles, internships, and collaborations
+              </div>
+            </div>
+          </Card>
 
           {/* Contact Form */}
-          <Card className="glass p-8">
-            <h3 className="text-2xl font-bold text-primary mb-6">Send a Message</h3>
-            <form onSubmit={onSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-foreground">Name</label>
+          <Card className="glass p-6">
+            <h3 className="text-xl font-bold text-primary mb-4">Send a Message</h3>
+            <form onSubmit={onSubmit} className="space-y-4">
+              <div className="grid md:grid-cols-2 gap-3">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-medium text-foreground uppercase tracking-wide">Name</label>
                   <Input 
                     name="name"
                     placeholder="Your name"
-                    className="bg-card/50 border-primary/20 focus:border-primary"
+                    className="h-9 bg-card/50 border-primary/20 focus:border-primary text-sm"
                     required
                   />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-foreground">Email</label>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-medium text-foreground uppercase tracking-wide">Email</label>
                   <Input 
                     name="email"
                     type="email"
                     placeholder="your.email@example.com"
-                    className="bg-card/50 border-primary/20 focus:border-primary"
+                    className="h-9 bg-card/50 border-primary/20 focus:border-primary text-sm"
                     required
                   />
                 </div>
               </div>
               
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">Subject</label>
+              <div className="space-y-1.5">
+                <label className="text-xs font-medium text-foreground uppercase tracking-wide">Subject</label>
                 <Input 
                   name="subject"
                   placeholder="What's this about?"
-                  className="bg-card/50 border-primary/20 focus:border-primary"
+                  className="h-9 bg-card/50 border-primary/20 focus:border-primary text-sm"
                   required
                 />
               </div>
               
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">Message</label>
+              <div className="space-y-1.5">
+                <label className="text-xs font-medium text-foreground uppercase tracking-wide">Message</label>
                 <Textarea 
                   name="message"
                   placeholder="Tell me about your project, opportunity, or just say hello!"
-                  rows={6}
-                  className="bg-card/50 border-primary/20 focus:border-primary resize-none"
+                  rows={4}
+                  className="bg-card/50 border-primary/20 focus:border-primary resize-none text-sm min-h-[80px]"
                   required
                 />
               </div>
@@ -222,17 +194,17 @@ const Contact = () => {
               <Button 
                 type="submit" 
                 variant="neon" 
-                size="lg" 
-                className="w-full"
+                size="default" 
+                className="w-full h-9 text-sm"
                 disabled={isSubmitting}
               >
-                <Send className="w-5 h-5" />
+                <Send className="w-4 h-4" />
                 {isSubmitting ? 'Sending...' : 'Send Message'}
               </Button>
 
               {/* Result Message */}
               {result && (
-                <div className={`flex items-center gap-2 p-3 rounded-lg text-sm ${
+                <div className={`flex items-center gap-2 p-2.5 rounded-md text-xs ${
                   result.includes('successfully') 
                     ? 'bg-terminal-green/20 text-terminal-green border border-terminal-green/30' 
                     : result.includes('Sending') 
@@ -240,16 +212,42 @@ const Contact = () => {
                     : 'bg-red-500/20 text-red-500 border border-red-500/30'
                 }`}>
                   {result.includes('successfully') ? (
-                    <CheckCircle className="w-4 h-4" />
+                    <CheckCircle className="w-3.5 h-3.5" />
                   ) : result.includes('Sending') ? (
-                    <Send className="w-4 h-4 animate-pulse" />
+                    <Send className="w-3.5 h-3.5 animate-pulse" />
                   ) : (
-                    <AlertCircle className="w-4 h-4" />
+                    <AlertCircle className="w-3.5 h-3.5" />
                   )}
                   {result}
                 </div>
               )}
             </form>
+          </Card>
+        </div>
+
+        {/* Connect With Me - Centered Below */}
+        <div className="text-center">
+          <Card className="glass p-6 max-w-2xl mx-auto">
+            <h3 className="text-xl font-bold text-primary mb-4">Connect With Me</h3>
+            <div className="grid md:grid-cols-3 gap-4">
+              {socialLinks.map((social, index) => (
+                <a
+                  key={index}
+                  href={social.href}
+                  target={social.href.startsWith('http') ? '_blank' : undefined} 
+                  rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  className="flex flex-col items-center gap-2 p-3 bg-card/30 rounded-lg hover:bg-card/50 transition-all duration-300 group"
+                >
+                  <social.icon className={`w-5 h-5 text-muted-foreground ${social.color} transition-colors`} />
+                  <div className="text-center">
+                    <div className="text-xs text-muted-foreground uppercase tracking-wide">{social.label}</div>
+                    <div className="text-foreground font-medium text-sm group-hover:text-primary transition-colors">
+                      {social.value}
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
           </Card>
         </div>
 
@@ -263,16 +261,28 @@ const Contact = () => {
               Whether you're looking for a dedicated developer, researcher, or team leader, 
               I'm excited to discuss how we can create something amazing together.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="neon" size="lg">
-                <Mail className="w-5 h-5" />
-                Schedule a Call
-              </Button>
-              <Button variant="glass" size="lg">
-                <Github className="w-5 h-5" />
-                View My Work
-              </Button>
-            </div>
+                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
+               <a
+                 href="tel:+919971073804"
+                 className="inline-block"
+               >
+                 <Button variant="neon" size="lg">
+                   <Mail className="w-5 h-5" />
+                   Schedule a Call
+                 </Button>
+               </a>
+               <a
+                 href="https://github.com/sachinsingh2156"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 className="inline-block"
+               >
+                 <Button variant="glass" size="lg">
+                   <Github className="w-5 h-5" />
+                   View My Work
+                 </Button>
+               </a>
+             </div>
           </Card>
         </div>
       </div>
