@@ -301,10 +301,17 @@ const Projects = () => {
 
         {/* View More Projects */}
         <div className="text-center mt-12">
-          <Button variant="neon" size="lg">
-            <Github className="w-5 h-5" />
-            View All Projects on GitHub
-          </Button>
+          <a
+            href="https://github.com/sachinsingh2156"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block"
+          >
+            <Button variant="neon" size="lg">
+              <Github className="w-5 h-5" />
+              View All Projects on GitHub
+            </Button>
+          </a>
         </div>
       </div>
     </section>
