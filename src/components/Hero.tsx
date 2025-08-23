@@ -29,6 +29,16 @@ const Hero = () => {
     }
   }, [displayText, currentIndex, texts]);
 
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Animated Background */}
@@ -94,7 +104,12 @@ const Hero = () => {
               Download Resume
             </Button>
           </a>
-          <Button variant="glass" size="hero">
+          <Button 
+            variant="glass" 
+            size="hero" 
+            onClick={scrollToContact}
+            className="cursor-pointer hover:scale-105 transition-transform"
+          >
             <Mail className="w-5 h-5" />
             Get In Touch
           </Button>
