@@ -139,7 +139,7 @@
     @apply font-inter font-bold;
   }
 
-  code, .font-mono {
+  code {
     @apply font-mono;
   }
 }
