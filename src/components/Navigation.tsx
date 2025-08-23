@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Download } from 'lucide-react';
+import logo from '@/assets/logo.png';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -42,9 +43,13 @@ const Navigation = () => {
           <div className="flex-shrink-0">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="text-2xl font-bold neon-text hover:text-primary-glow transition-colors"
+              className="hover:opacity-80 transition-opacity duration-300"
             >
-              SS
+              <img 
+                src={logo} 
+                alt="Sachin Singh Logo" 
+                className="h-12 w-auto"
+              />
             </button>
           </div>
 
@@ -66,10 +71,16 @@ const Navigation = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:block">
-            <Button variant="cyber" size="sm">
-              <Download className="w-4 h-4" />
-              Resume
-            </Button>
+            <a 
+              href="https://drive.google.com/file/d/1gBS8R7Rz4rkNwiFAzANTdndIANK143Ys/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="cyber" size="sm">
+                <Download className="w-4 h-4" />
+                Resume
+              </Button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -100,10 +111,17 @@ const Navigation = () => {
               </button>
             ))}
             <div className="px-3 py-2">
-              <Button variant="cyber" size="sm" className="w-full">
-                <Download className="w-4 h-4" />
-                Download Resume
-              </Button>
+              <a 
+                href="https://drive.google.com/file/d/1gBS8R7Rz4rkNwiFAzANTdndIANK143Ys/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <Button variant="cyber" size="sm" className="w-full">
+                  <Download className="w-4 h-4" />
+                  Download Resume
+                </Button>
+              </a>
             </div>
           </div>
         </div>

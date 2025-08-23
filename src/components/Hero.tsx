@@ -62,7 +62,7 @@ const Hero = () => {
         <div className="space-y-4 animate-fade-in">
           <div className="flex items-center justify-center gap-2 text-muted-foreground">
             <MapPin className="w-4 h-4" />
-            <span>Bangalore, India</span>
+            <span>New Delhi, India</span>
           </div>
           
           <h1 className="text-6xl md:text-8xl font-bold neon-text mb-4">
@@ -83,10 +83,17 @@ const Hero = () => {
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up">
-          <Button variant="neon" size="hero" className="group">
-            <Download className="w-5 h-5 group-hover:animate-bounce" />
-            Download Resume
-          </Button>
+          <a 
+            href="https://drive.google.com/file/d/1gBS8R7Rz4rkNwiFAzANTdndIANK143Ys/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block"
+          >
+            <Button variant="neon" size="hero" className="group">
+              <Download className="w-5 h-5 group-hover:animate-bounce" />
+              Download Resume
+            </Button>
+          </a>
           <Button variant="glass" size="hero">
             <Mail className="w-5 h-5" />
             Get In Touch

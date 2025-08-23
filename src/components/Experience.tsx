@@ -37,23 +37,6 @@ const Experience = () => {
       skills: ['Project Management', 'Leadership', 'Research Guidance', 'Team Coordination']
     },
     {
-      title: 'Student Placement Coordinator',
-      company: 'Jain (Deemed-to-be University)',
-      duration: 'August 2023 – May 2024',
-      location: 'Bangalore, India',
-      type: 'Leadership',
-      description: 'Coordinated placement activities for engineering students, liaising with companies and organizing recruitment drives.',
-      responsibilities: [
-        'Coordinated placement activities for engineering students',
-        'Liaised with recruiting companies and HR teams',
-        'Organized campus recruitment drives and job fairs',
-        'Supported peer students in interview preparation',
-        'Managed student-recruiter communication channels'
-      ],
-      impact: 'Successful placement coordination for entire batch',
-      skills: ['Communication', 'Organization', 'Leadership', 'Stakeholder Management']
-    },
-    {
       title: 'Full-Stack Intern',
       company: 'Web Stack Academy',
       duration: 'February – April 2024',
@@ -71,6 +54,23 @@ const Experience = () => {
       skills: ['React.js', 'Express.js', 'MongoDB', 'Agile', 'Team Collaboration']
     },
     {
+      title: 'Student Placement Coordinator',
+      company: 'Jain (Deemed-to-be University)',
+      duration: 'August 2023 – May 2024',
+      location: 'Bangalore, India',
+      type: 'Leadership',
+      description: 'Coordinated placement activities for engineering students, liaising with companies and organizing recruitment drives.',
+      responsibilities: [
+        'Coordinated placement activities for engineering students',
+        'Liaised with recruiting companies and HR teams',
+        'Organized campus recruitment drives and job fairs',
+        'Supported peer students in interview preparation',
+        'Managed student-recruiter communication channels'
+      ],
+      impact: 'Successful placement coordination for entire batch',
+      skills: ['Communication', 'Organization', 'Leadership', 'Stakeholder Management']
+    },
+    {
       title: 'Freelance Academic Writer',
       company: 'Paperpedia Pvt. Ltd.',
       duration: 'September 2023 – Present',
@@ -86,6 +86,23 @@ const Experience = () => {
       ],
       impact: '50+ scripts delivered, 95% client satisfaction',
       skills: ['Technical Writing', 'Programming', 'Research', 'Time Management']
+    },
+    {
+      title: 'IoT Intern',
+      company: 'EMERTXE - The Future-Ready IT Institute',
+      duration: 'March – May 2023',
+      location: 'Bangalore, India',
+      type: 'Technical',
+      description: 'Completed comprehensive online internship on Internet of Things (IoT) with hands-on exposure to foundational programming and SDLC-based project building.',
+      responsibilities: [
+        'Developed foundational programming skills in C & Micro-Controllers',
+        'Built IoT projects following Software Development Life Cycle (SDLC)',
+        'Worked with NSDC and ESSCI affiliated programs',
+        'Completed hands-on IoT development tasks and assignments',
+        'Collaborated with industry professionals and mentors'
+      ],
+      impact: 'Successfully completed IoT internship with Certificate ID: EI23_007',
+      skills: ['IoT', 'C Programming', 'Microcontrollers', 'SDLC', 'Embedded Systems']
     }
   ];
 

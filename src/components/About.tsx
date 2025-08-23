@@ -12,7 +12,6 @@ const About = () => {
 
   const highlights = [
     'M.Tech in Computer Science from IIT Jodhpur',
-    'CGPA: 6.73 (Current) | B.Tech: 9.20 CGPA',
     'Published Research in Sleep Monitoring Systems',
     'Teaching Assistant for 150+ M.Tech students',
     'Government Project: Police Duty Management System',

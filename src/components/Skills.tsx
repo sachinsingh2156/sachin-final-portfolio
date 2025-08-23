@@ -81,15 +81,17 @@ const Skills = () => {
   const certifications = [
     {
       name: 'IBM Full Stack Software Developer',
-      issuer: 'Coursera',
+      issuer: 'IBM',
       year: '2024',
-      verified: true
+      verified: true,
+      link: 'https://drive.google.com/file/d/1Tj5spea3y4tPSF5QzyO98SQih09RHANl/view?usp=sharing'
     },
     {
       name: 'Project Management',
-      issuer: 'LinkedIn Learning',
+      issuer: 'Simply Learn',
       year: '2025',
-      verified: true
+      verified: true,
+      link: 'https://drive.google.com/file/d/1UYVDEC5nkBVwhJL5noN3qj_mntLQW_Xk/view?usp=sharing'
     }
   ];
 
@@ -146,17 +148,25 @@ const Skills = () => {
           </h3>
           <div className="grid md:grid-cols-2 gap-6">
             {certifications.map((cert, index) => (
-              <div key={index} className="flex items-center justify-between p-4 bg-card/30 rounded-lg border border-primary/20">
-                <div>
-                  <h4 className="font-semibold text-foreground">{cert.name}</h4>
-                  <p className="text-sm text-muted-foreground">{cert.issuer} • {cert.year}</p>
+              <a 
+                key={index} 
+                href={cert.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <div className="flex items-center justify-between p-4 bg-card/30 rounded-lg border border-primary/20 hover:border-primary/50 hover:bg-card/50 transition-all duration-300 cursor-pointer group">
+                  <div>
+                    <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors">{cert.name}</h4>
+                    <p className="text-sm text-muted-foreground">{cert.issuer} • {cert.year}</p>
+                  </div>
+                  {cert.verified && (
+                    <Badge variant="secondary" className="bg-terminal-green/20 text-terminal-green border-terminal-green/30">
+                      Verified
+                    </Badge>
+                  )}
                 </div>
-                {cert.verified && (
-                  <Badge variant="secondary" className="bg-terminal-green/20 text-terminal-green border-terminal-green/30">
-                    Verified
-                  </Badge>
-                )}
-              </div>
+              </a>
             ))}
           </div>
         </Card>

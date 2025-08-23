@@ -9,7 +9,6 @@ const Education = () => {
       field: 'Computer Science and Engineering',
       institution: 'Indian Institute of Technology Jodhpur',
       duration: '2024 – Present',
-      grade: 'CGPA: 6.73 (Current)',
       status: 'current',
       description: 'Advanced coursework in ML, Software Engineering, Cloud Computing, and AI for Healthcare'
     },
@@ -18,7 +17,6 @@ const Education = () => {
       field: 'Computer Engineering (Software Engineering)',
       institution: 'Jain (Deemed-to-be University)',
       duration: '2020 – 2024',
-      grade: 'CGPA: 9.20',
       status: 'completed',
       description: 'Specialized in software engineering with focus on full-stack development and project management'
     },
@@ -27,16 +25,14 @@ const Education = () => {
       field: 'Science',
       institution: 'NEB Board',
       duration: '2018',
-      grade: '79.50%',
       status: 'completed',
-      description: 'Science stream with Mathematics, Physics, and Chemistry'
+      description: 'Science stream with Mathematics, Physics, Chemistry, and Biology'
     },
     {
       degree: 'Secondary (Class 10)',
       field: 'General',
       institution: 'SLC Board', 
       duration: '2016',
-      grade: '88.75%',
       status: 'completed',
       description: 'Strong foundation in mathematics and sciences'
     }
@@ -93,11 +89,6 @@ const Education = () => {
                         <span className="font-mono text-sm">{edu.duration}</span>
                       </div>
                     </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-2">
-                    <Award className="w-5 h-5 text-secondary" />
-                    <span className="font-semibold text-secondary">{edu.grade}</span>
                   </div>
                 </div>
 
