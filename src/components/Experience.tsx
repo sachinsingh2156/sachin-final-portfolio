@@ -82,9 +82,9 @@ const Experience = () => {
         'Conducted thorough research for technical accuracy',
         'Ensured content meets client specifications',
         'Managed multiple projects with tight deadlines',
-        'Maintained 95% client satisfaction rate'
+        'Maintained 100% client satisfaction rate'
       ],
-      impact: '50+ scripts delivered, 95% client satisfaction',
+      impact: '50+ scripts delivered, 100% client satisfaction',
       skills: ['Technical Writing', 'Programming', 'Research', 'Time Management']
     },
     {
@@ -228,7 +228,7 @@ const Experience = () => {
           </Card>
           <Card className="glass p-6 text-center">
             <Briefcase className="w-8 h-8 text-accent mx-auto mb-3" />
-            <div className="text-2xl font-bold neon-text mb-2">95%</div>
+            <div className="text-2xl font-bold neon-text mb-2">100%</div>
             <div className="text-muted-foreground">Client Satisfaction</div>
           </Card>
         </div>
