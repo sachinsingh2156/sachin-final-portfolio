@@ -23,7 +23,7 @@ const services: { title: string; description: string; icon: LucideIcon }[] = [
 ];
 
 const highlights: { text: string; icon: LucideIcon }[] = [
-  { text: 'PhD in Computer Science, IIT Jodhpur', icon: GraduationCap },
+  { text: 'PhD Scholar in Computer Science, IIT Jodhpur', icon: GraduationCap },
   { text: '5 peer-reviewed publications on Google Scholar', icon: FileText },
   { text: 'Teaching Assistant for 150+ M.Tech students', icon: Users },
   { text: 'Police Duty Management System — live for 1500+ personnel', icon: Shield },
@@ -31,7 +31,6 @@ const highlights: { text: string; icon: LucideIcon }[] = [
 
 const stats = [
   { value: '5', label: 'Publications' },
-  { value: '5', label: 'Commonwealth Countries' },
   { value: '150+', label: 'Students Mentored' },
   { value: '1500+', label: 'OERs Published' },
 ];
@@ -93,18 +92,20 @@ const About = () => (
         </div>
       </div>
 
-      <div className="lg:col-span-5 grid grid-cols-2 gap-4 content-start">
-        {stats.map((s, i) => (
-          <div
-            key={s.label}
-            className="reveal ios-glass rounded-[28px] p-5 hover:bg-ink/5 transition-colors"
-            style={{ transitionDelay: `${i * 60}ms` }}
-          >
-            <div className="text-3xl font-medium text-ink tracking-tight">{s.value}</div>
-            <div className="text-xs text-ink/40 mt-1">{s.label}</div>
-          </div>
-        ))}
-        <div className="reveal ios-glass rounded-[28px] p-5 col-span-2 space-y-3.5">
+      <div className="lg:col-span-5 flex flex-col gap-4">
+        <div className="grid grid-cols-3 gap-3">
+          {stats.map((s, i) => (
+            <div
+              key={s.label}
+              className="reveal ios-glass rounded-[28px] p-4 sm:p-5 hover:bg-ink/5 transition-colors text-center sm:text-left"
+              style={{ transitionDelay: `${i * 60}ms` }}
+            >
+              <div className="text-2xl sm:text-3xl font-medium text-ink tracking-tight">{s.value}</div>
+              <div className="text-[10px] sm:text-xs text-ink/40 mt-1 leading-snug">{s.label}</div>
+            </div>
+          ))}
+        </div>
+        <div className="reveal ios-glass rounded-[28px] p-5 space-y-3.5">
           {highlights.map(({ text, icon: Icon }) => (
             <div key={text} className="flex items-start gap-3">
               <div className="p-1.5 rounded-lg bg-ink/5 text-tiffany-ink shrink-0">
