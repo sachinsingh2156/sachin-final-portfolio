@@ -30,7 +30,7 @@ const Index = () => {
       <Contact />
 
       <footer className="relative z-10 w-full text-center py-12 border-t border-ink/5 mt-10">
-        <p className="text-[10px] text-ink/30 uppercase tracking-widest mb-4">Designed &amp; built in New Delhi</p>
+        <p className="text-[10px] text-ink/30 uppercase tracking-widest mb-4">Designed and built by Sachin Singh</p>
         <div className="flex justify-center gap-6 mb-6">
           {socials.map(({ label, href }) => (
             <a
