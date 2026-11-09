@@ -3,32 +3,48 @@ import Hero from '../components/Hero';
 import About from '../components/About';
 import Education from '../components/Education';
 import Projects from '../components/Projects';
+import Publications from '../components/Publications';
 import Skills from '../components/Skills';
 import Experience from '../components/Experience';
 import Contact from '../components/Contact';
+import { useReveal } from '@/hooks/use-reveal';
+import { socials } from '@/lib/profile';
 
 const Index = () => {
+  useReveal();
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen w-full relative overflow-x-clip">
+      {/* Background ambiance (fixed) */}
+      <div className="ambient-blob blob-a top-[-20%] left-[-10%] w-[600px] h-[600px]" />
+      <div className="ambient-blob blob-b bottom-[-20%] right-[-10%] w-[500px] h-[500px]" />
+
       <Navigation />
       <Hero />
       <About />
       <Education />
       <Projects />
+      <Publications />
       <Skills />
       <Experience />
       <Contact />
-      
-      {/* Footer */}
-      <footer className="py-8 px-4 border-t border-primary/20 bg-card/50">
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-muted-foreground">
-            Developed with ❤️ by Sachin Singh using React, TypeScript, and Tailwind CSS
-          </p>
-          <p className="text-sm text-muted-foreground mt-2">
-            © 2025 Sachin Singh. All rights reserved.
-          </p>
+
+      <footer className="relative z-10 w-full text-center py-12 border-t border-ink/5 mt-10">
+        <p className="text-[10px] text-ink/30 uppercase tracking-widest mb-4">Designed &amp; built in New Delhi</p>
+        <div className="flex justify-center gap-6 mb-6">
+          {socials.map(({ label, href }) => (
+            <a
+              key={label}
+              href={href}
+              target={href.startsWith('http') ? '_blank' : undefined}
+              rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+              className="text-xs text-ink/40 hover:text-ink transition-colors"
+            >
+              {label}
+            </a>
+          ))}
         </div>
+        <p className="text-xs text-ink/30">© {new Date().getFullYear()} Sachin Singh</p>
       </footer>
     </div>
   );

@@ -23,6 +23,12 @@ export default {
 				'mono': ['JetBrains Mono', 'monospace'],
 			},
 			colors: {
+				canvas: 'rgb(var(--canvas) / <alpha-value>)',
+				ink: 'rgb(var(--ink) / <alpha-value>)',
+				tiffany: {
+					DEFAULT: 'rgb(var(--tiffany) / <alpha-value>)',
+					ink: 'rgb(var(--tiffany-ink) / <alpha-value>)',
+				},
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',

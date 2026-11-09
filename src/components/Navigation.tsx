@@ -1,130 +1,59 @@
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Menu, X, Download } from 'lucide-react';
-import logo from '@/assets/logo.png';
+import { useEffect, useState } from 'react';
+import { ThemeIconButton } from './ThemeToggle';
+
+const navItems = [
+  { name: 'About', href: '#about', mobile: true },
+  { name: 'Education', href: '#education', mobile: false },
+  { name: 'Work', href: '#work', mobile: true },
+  { name: 'Research', href: '#publications', mobile: false },
+  { name: 'Skills', href: '#skills', mobile: false },
+  { name: 'Experience', href: '#experience', mobile: true },
+];
 
 const Navigation = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [active, setActive] = useState('');
 
-  const navItems = [
-    { name: 'About', href: '#about' },
-    { name: 'Education', href: '#education' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Contact', href: '#contact' }
-  ];
-
+  // Highlight the section currently in view
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const ids = [...navItems.map((i) => i.href.slice(1)), 'contact'];
+    const sections = ids.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
   }, []);
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
-    }
-  };
-
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'glass backdrop-blur-lg border-b border-primary/20' : 'bg-transparent'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <button
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="hover:opacity-80 transition-opacity duration-300"
+    <nav className="fixed top-4 md:top-6 inset-x-0 z-50 flex justify-center px-3 pointer-events-none">
+      <div className="pointer-events-auto opacity-0 animate-fade-up ios-glass rounded-full px-1.5 py-1.5 flex items-center gap-0.5 md:gap-1 shadow-2xl">
+        {navItems.map((item) => {
+          const isActive = active === item.href.slice(1);
+          return (
+            <a
+              key={item.name}
+              href={item.href}
+              className={`${item.mobile ? '' : 'hidden md:inline-flex'} px-3 md:px-5 py-2.5 rounded-full text-xs font-medium transition-all duration-300 ${
+                isActive ? 'text-ink bg-ink/10' : 'text-ink/70 hover:text-ink hover:bg-ink/10'
+              }`}
             >
-              <img 
-                src={logo} 
-                alt="Sachin Singh Logo" 
-                className="h-12 w-auto"
-              />
-            </button>
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="flex items-center space-x-8">
-              {navItems.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => scrollToSection(item.href)}
-                  className="text-muted-foreground hover:text-primary transition-colors duration-300 relative group"
-                >
-                  {item.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Desktop CTA */}
-          <div className="hidden md:block">
-            <a 
-              href="https://drive.google.com/file/d/1gBS8R7Rz4rkNwiFAzANTdndIANK143Ys/view?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button variant="cyber" size="sm">
-                <Download className="w-4 h-4" />
-                Resume
-              </Button>
+              {item.name}
             </a>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-foreground hover:text-primary"
-            >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </Button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        <div className={`md:hidden transition-all duration-300 overflow-hidden ${
-          isMobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-        }`}>
-          <div className="px-2 pt-2 pb-3 space-y-1 glass rounded-lg mt-2">
-            {navItems.map((item) => (
-              <button
-                key={item.name}
-                onClick={() => scrollToSection(item.href)}
-                className="block w-full text-left px-3 py-2 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-md transition-colors"
-              >
-                {item.name}
-              </button>
-            ))}
-            <div className="px-3 py-2">
-              <a 
-                href="https://drive.google.com/file/d/1gBS8R7Rz4rkNwiFAzANTdndIANK143Ys/view?usp=sharing"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block"
-              >
-                <Button variant="cyber" size="sm" className="w-full">
-                  <Download className="w-4 h-4" />
-                  Download Resume
-                </Button>
-              </a>
-            </div>
-          </div>
-        </div>
+          );
+        })}
+        <a
+          href="#contact"
+          className="px-3 md:px-5 py-2.5 rounded-full bg-tiffany text-black text-xs font-medium hover:brightness-110 transition-all duration-300 shadow-[0_0_20px_-5px_rgba(129,216,208,0.5)]"
+        >
+          Contact
+        </a>
+        <span className="w-px h-5 bg-ink/10 mx-0.5" aria-hidden="true" />
+        <ThemeIconButton />
       </div>
     </nav>
   );

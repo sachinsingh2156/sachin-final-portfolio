@@ -1,290 +1,166 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Mail, Phone, MapPin, Github, Linkedin, Send, Globe, CheckCircle, AlertCircle } from 'lucide-react';
+import { useState, type FormEvent } from 'react';
+import { AlertCircle, ArrowUpRight, CheckCircle, Mail, MapPin, Phone, Send, Globe } from 'lucide-react';
+import SectionHeader from './SectionHeader';
+import { socials } from '@/lib/profile';
+
+const contactInfo = [
+  { icon: Mail, label: 'Email', value: 'sachinsingh2156@gmail.com', href: 'mailto:sachinsingh2156@gmail.com' },
+  { icon: Phone, label: 'Phone', value: '+91-9971073804', href: 'tel:+919971073804' },
+  { icon: MapPin, label: 'Location', value: 'New Delhi, India', href: null },
+  { icon: Globe, label: 'Website', value: 'sachinsingh.com.np', href: 'https://sachinsingh.com.np' },
+];
+
+type Status = { kind: 'idle' | 'sending' | 'success' | 'error'; message: string };
+
+const fieldClass =
+  'w-full rounded-2xl bg-ink/5 border border-ink/10 px-4 py-3 text-sm text-ink placeholder:text-ink/30 outline-none focus:border-tiffany focus:ring-2 focus:ring-tiffany/30 transition';
 
 const Contact = () => {
-  const [result, setResult] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const contactInfo = [
-    {
-      icon: Mail,
-      label: 'Email',
-      value: 'sachinsingh2156@gmail.com',
-      href: 'mailto:sachinsingh2156@gmail.com'
-    },
-    {
-      icon: Phone,
-      label: 'Phone',
-      value: '+91-9971073804',
-      href: 'tel:+919971073804'
-    },
-    {
-      icon: MapPin,
-      label: 'Location',
-      value: 'New Delhi, India',
-      href: null
-    },
-    {
-      icon: Globe,
-      label: 'Portfolio',
-      value: 'sachinsingh.com.np',
-      href: 'https://sachinsingh.com.np'
-    }
-  ];
+  const [status, setStatus] = useState<Status>({ kind: 'idle', message: '' });
 
-  const socialLinks = [
-    {
-      icon: Github,
-      label: 'GitHub',
-      value: 'sachinsingh2156',
-      href: 'https://github.com/sachinsingh2156',
-      color: 'hover:text-primary'
-    },
-    {
-      icon: Linkedin,
-      label: 'LinkedIn',
-      value: 'sachinsingh2156',
-      href: 'https://linkedin.com/in/sachinsingh2156',
-      color: 'hover:text-secondary'
-    },
-    {
-      icon: Mail,
-      label: 'Email',
-      value: 'sachinsingh2156@gmail.com',
-      href: 'mailto:sachinsingh2156@gmail.com',
-      color: 'hover:text-accent'
-    }
-  ];
-
-  const onSubmit = async (event) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsSubmitting(true);
-    setResult("Sending....");
-    
-    const formData = new FormData(event.target);
-    formData.append("access_key", "99a393e3-461a-4e51-9bfe-87a0b2858dfc");
+    const form = event.currentTarget;
+    setStatus({ kind: 'sending', message: 'Sending…' });
+
+    const formData = new FormData(form);
+    formData.append('access_key', '99a393e3-461a-4e51-9bfe-87a0b2858dfc');
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData
-      });
-
+      const response = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
       const data = await response.json();
-
       if (data.success) {
-        setResult("Message sent successfully! I'll get back to you soon.");
-        event.target.reset();
+        setStatus({ kind: 'success', message: "Message sent successfully! I'll get back to you soon." });
+        form.reset();
       } else {
-        console.log("Error", data);
-        setResult(data.message || "Something went wrong. Please try again.");
+        setStatus({ kind: 'error', message: data.message || 'Something went wrong. Please try again.' });
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
-      setResult("Network error. Please check your connection and try again.");
-    } finally {
-      setIsSubmitting(false);
+      console.error('Error submitting form:', error);
+      setStatus({ kind: 'error', message: 'Network error. Please check your connection and try again.' });
     }
   };
 
+  const sending = status.kind === 'sending';
+
   return (
-    <section id="contact" className="py-20 px-4 bg-muted/10">
-      <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold neon-text mb-4">
-            Get In Touch
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Let's discuss opportunities, collaborations, or just connect!
-          </p>
-        </div>
+    <section id="contact" className="section-shell scroll-mt-8">
+      <SectionHeader
+        eyebrow="Contact"
+        title="Let's build something"
+        subtitle="Open to full-time roles, internships and collaborations. Drop a message and I'll get back to you."
+      />
 
-        <div className="grid lg:grid-cols-2 gap-8 mb-12">
-          {/* Contact Information */}
-          <Card className="glass p-6">
-            <h3 className="text-xl font-bold text-primary mb-4">Contact Information</h3>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Info widgets */}
+        <div className="lg:col-span-5 flex flex-col gap-4">
+          <div className="reveal ios-glass rounded-[32px] p-6 tiffany-glow">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-tiffany opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-tiffany" />
+              </span>
+              <span className="text-xs font-medium tracking-wide text-tiffany-ink uppercase">Available for opportunities</span>
+            </div>
             <div className="space-y-4">
-              {contactInfo.map((item, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <div className="p-2 bg-primary/10 rounded-lg">
-                    <item.icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <div className="text-xs text-muted-foreground uppercase tracking-wide">{item.label}</div>
-                    {item.href ? (
-                      <a 
-                        href={item.href}
-                        className="text-foreground hover:text-primary transition-colors font-medium text-sm"
-                        target={item.href.startsWith('http') ? '_blank' : undefined}
-                        rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      >
-                        {item.value}
-                      </a>
-                    ) : (
-                      <div className="text-foreground font-medium text-sm">{item.value}</div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Availability Status */}
-            <div className="mt-6 pt-4 border-t border-primary/20">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-terminal-green rounded-full animate-pulse" />
-                <div className="text-xs font-medium text-terminal-green">Available for Opportunities</div>
-              </div>
-              <div className="text-xs text-muted-foreground mt-1">
-                Open to full-time roles, internships, and collaborations
-              </div>
-            </div>
-          </Card>
-
-          {/* Contact Form */}
-          <Card className="glass p-6">
-            <h3 className="text-xl font-bold text-primary mb-4">Send a Message</h3>
-            <form onSubmit={onSubmit} className="space-y-4">
-              <div className="grid md:grid-cols-2 gap-3">
-                <div className="space-y-1.5">
-                  <label className="text-xs font-medium text-foreground uppercase tracking-wide">Name</label>
-                  <Input 
-                    name="name"
-                    placeholder="Your name"
-                    className="h-9 bg-card/50 border-primary/20 focus:border-primary text-sm"
-                    required
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-xs font-medium text-foreground uppercase tracking-wide">Email</label>
-                  <Input 
-                    name="email"
-                    type="email"
-                    placeholder="your.email@example.com"
-                    className="h-9 bg-card/50 border-primary/20 focus:border-primary text-sm"
-                    required
-                  />
-                </div>
-              </div>
-              
-              <div className="space-y-1.5">
-                <label className="text-xs font-medium text-foreground uppercase tracking-wide">Subject</label>
-                <Input 
-                  name="subject"
-                  placeholder="What's this about?"
-                  className="h-9 bg-card/50 border-primary/20 focus:border-primary text-sm"
-                  required
-                />
-              </div>
-              
-              <div className="space-y-1.5">
-                <label className="text-xs font-medium text-foreground uppercase tracking-wide">Message</label>
-                <Textarea 
-                  name="message"
-                  placeholder="Tell me about your project, opportunity, or just say hello!"
-                  rows={4}
-                  className="bg-card/50 border-primary/20 focus:border-primary resize-none text-sm min-h-[80px]"
-                  required
-                />
-              </div>
-              
-              <Button 
-                type="submit" 
-                variant="neon" 
-                size="default" 
-                className="w-full h-9 text-sm"
-                disabled={isSubmitting}
-              >
-                <Send className="w-4 h-4" />
-                {isSubmitting ? 'Sending...' : 'Send Message'}
-              </Button>
-
-              {/* Result Message */}
-              {result && (
-                <div className={`flex items-center gap-2 p-2.5 rounded-md text-xs ${
-                  result.includes('successfully') 
-                    ? 'bg-terminal-green/20 text-terminal-green border border-terminal-green/30' 
-                    : result.includes('Sending') 
-                    ? 'bg-primary/20 text-primary border border-primary/30'
-                    : 'bg-red-500/20 text-red-500 border border-red-500/30'
-                }`}>
-                  {result.includes('successfully') ? (
-                    <CheckCircle className="w-3.5 h-3.5" />
-                  ) : result.includes('Sending') ? (
-                    <Send className="w-3.5 h-3.5 animate-pulse" />
-                  ) : (
-                    <AlertCircle className="w-3.5 h-3.5" />
-                  )}
-                  {result}
-                </div>
-              )}
-            </form>
-          </Card>
-        </div>
-
-        {/* Connect With Me - Centered Below */}
-        <div className="text-center">
-          <Card className="glass p-6 max-w-2xl mx-auto">
-            <h3 className="text-xl font-bold text-primary mb-4">Connect With Me</h3>
-            <div className="grid md:grid-cols-3 gap-4">
-              {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  target={social.href.startsWith('http') ? '_blank' : undefined} 
-                  rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="flex flex-col items-center gap-2 p-3 bg-card/30 rounded-lg hover:bg-card/50 transition-all duration-300 group"
-                >
-                  <social.icon className={`w-5 h-5 text-muted-foreground ${social.color} transition-colors`} />
-                  <div className="text-center">
-                    <div className="text-xs text-muted-foreground uppercase tracking-wide">{social.label}</div>
-                    <div className="text-foreground font-medium text-sm group-hover:text-primary transition-colors">
-                      {social.value}
+              {contactInfo.map(({ icon: Icon, label, value, href }) => {
+                const inner = (
+                  <>
+                    <div className="p-2.5 rounded-xl bg-ink/5 text-ink/60 group-hover:text-tiffany-ink transition-colors">
+                      <Icon className="w-4 h-4" />
                     </div>
+                    <div className="min-w-0">
+                      <div className="text-[10px] uppercase tracking-wider text-ink/40">{label}</div>
+                      <div className="text-sm text-ink truncate">{value}</div>
+                    </div>
+                  </>
+                );
+                return href ? (
+                  <a
+                    key={label}
+                    href={href}
+                    target={href.startsWith('http') ? '_blank' : undefined}
+                    rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    className="flex items-center gap-3 group"
+                  >
+                    {inner}
+                  </a>
+                ) : (
+                  <div key={label} className="flex items-center gap-3 group">
+                    {inner}
                   </div>
-                </a>
-              ))}
+                );
+              })}
             </div>
-          </Card>
+          </div>
+
+          <div className="grid grid-cols-3 gap-4">
+            {socials.map(({ label, href, icon: Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith('http') ? '_blank' : undefined}
+                rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                className="reveal ios-glass rounded-[28px] p-5 flex flex-col items-start gap-6 hover:bg-ink/5 transition-colors group"
+              >
+                <div className="w-full flex justify-between items-start">
+                  <Icon className="w-5 h-5 text-ink/60 group-hover:text-tiffany-ink transition-colors" />
+                  <ArrowUpRight className="w-4 h-4 text-ink/30 group-hover:text-ink transition-colors" />
+                </div>
+                <span className="text-sm font-medium text-ink">{label}</span>
+              </a>
+            ))}
+          </div>
         </div>
 
-        {/* Call to Action */}
-        <div className="text-center mt-16">
-          <Card className="glass p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-primary mb-4">
-              Ready to Work Together?
-            </h3>
-            <p className="text-muted-foreground mb-6">
-              Whether you're looking for a dedicated developer, researcher, or team leader, 
-              I'm excited to discuss how we can create something amazing together.
-            </p>
-                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-               <a
-                 href="tel:+919971073804"
-                 className="inline-block"
-               >
-                 <Button variant="neon" size="lg">
-                   <Mail className="w-5 h-5" />
-                   Schedule a Call
-                 </Button>
-               </a>
-               <a
-                 href="https://github.com/sachinsingh2156"
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 className="inline-block"
-               >
-                 <Button variant="glass" size="lg">
-                   <Github className="w-5 h-5" />
-                   View My Work
-                 </Button>
-               </a>
-             </div>
-          </Card>
-        </div>
+        {/* Form */}
+        <form onSubmit={onSubmit} className="reveal lg:col-span-7 ios-glass rounded-[32px] p-6 md:p-8 flex flex-col gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <label className="flex flex-col gap-2">
+              <span className="text-[10px] uppercase tracking-wider text-ink/50 font-medium">Name</span>
+              <input name="name" placeholder="Your name" required className={fieldClass} />
+            </label>
+            <label className="flex flex-col gap-2">
+              <span className="text-[10px] uppercase tracking-wider text-ink/50 font-medium">Email</span>
+              <input name="email" type="email" placeholder="you@example.com" required className={fieldClass} />
+            </label>
+          </div>
+          <label className="flex flex-col gap-2">
+            <span className="text-[10px] uppercase tracking-wider text-ink/50 font-medium">Subject</span>
+            <input name="subject" placeholder="What's this about?" required className={fieldClass} />
+          </label>
+          <label className="flex flex-col gap-2 flex-1">
+            <span className="text-[10px] uppercase tracking-wider text-ink/50 font-medium">Message</span>
+            <textarea
+              name="message"
+              rows={5}
+              placeholder="Tell me about your project, opportunity, or just say hello!"
+              required
+              className={`${fieldClass} resize-none flex-1 min-h-[140px]`}
+            />
+          </label>
+
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 mt-2">
+            <button
+              type="submit"
+              disabled={sending}
+              className="group flex items-center justify-center gap-2 bg-tiffany text-black px-6 py-3.5 rounded-full font-medium text-sm hover:brightness-110 hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100 transition-all duration-200 shadow-[0_0_20px_-5px_rgba(129,216,208,0.6)]"
+            >
+              <Send className={`w-4 h-4 ${sending ? 'animate-pulse' : 'group-hover:translate-x-0.5 transition-transform'}`} />
+              {sending ? 'Sending…' : 'Send Message'}
+            </button>
+
+            {status.kind !== 'idle' && status.kind !== 'sending' && (
+              <p
+                role="status"
+                className={`flex items-center gap-2 text-sm ${status.kind === 'success' ? 'text-tiffany-ink' : 'text-red-500'}`}
+              >
+                {status.kind === 'success' ? <CheckCircle className="w-4 h-4 shrink-0" /> : <AlertCircle className="w-4 h-4 shrink-0" />}
+                {status.message}
+              </p>
+            )}
+          </div>
+        </form>
       </div>
     </section>
   );

@@ -1,154 +1,138 @@
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Github, Linkedin, Mail, Download, MapPin } from 'lucide-react';
-import heroImage from '@/assets/hero-bg.jpg';
+import { ArrowDown, ArrowUpRight, Code2, Cpu, Database, Layers, Moon, Sun, Cloud } from 'lucide-react';
+import { useTheme } from '@/hooks/use-theme';
+import { ThemeSwitch } from './ThemeToggle';
+import { socials } from '@/lib/profile';
+
+const stack = [
+  { label: 'Full-stack', icon: Code2 },
+  { label: 'ML / AI', icon: Cpu },
+  { label: 'Databases', icon: Database },
+  { label: 'Cloud', icon: Cloud },
+];
 
 const Hero = () => {
-  const [displayText, setDisplayText] = useState('');
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const texts = [
-    'Software Engineer',
-    'Full-Stack Developer', 
-    'ML Enthusiast',
-    'Tech Innovator'
-  ];
-
-  useEffect(() => {
-    const currentText = texts[currentIndex];
-    if (displayText.length < currentText.length) {
-      const timer = setTimeout(() => {
-        setDisplayText(currentText.slice(0, displayText.length + 1));
-      }, 100);
-      return () => clearTimeout(timer);
-    } else {
-      const timer = setTimeout(() => {
-        setDisplayText('');
-        setCurrentIndex((prev) => (prev + 1) % texts.length);
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [displayText, currentIndex, texts]);
-
-  const scrollToContact = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
-  };
+  const { theme, isSystem } = useTheme();
+  const isDark = theme === 'dark';
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0">
-        <img 
-          src={heroImage} 
-          alt="Futuristic workspace"
-          className="w-full h-full object-cover opacity-20"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-background via-background/90 to-background/70" />
-      </div>
+    <main
+      id="top"
+      className="w-full max-w-7xl mx-auto px-4 md:px-8 relative z-10 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-6 items-center min-h-screen pt-28 md:pt-20 pb-10"
+    >
+      {/* Left column: title & intro */}
+      <div className="md:col-span-7 flex flex-col justify-center gap-6 md:gap-8 order-1">
+        <div className="flex items-center gap-3 opacity-0 animate-fade-up animate-delay-100">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-tiffany opacity-75" />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-tiffany" />
+          </span>
+          <span className="text-xs font-medium tracking-wide text-tiffany-ink uppercase">PhD · AI for education &amp; healthcare</span>
+        </div>
 
-      {/* Floating Particles */}
-      <div className="particles">
-        {Array.from({ length: 20 }).map((_, i) => (
-          <div
-            key={i}
-            className="particle absolute w-2 h-2 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 20}s`,
-              animationDuration: `${15 + Math.random() * 10}s`
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Main Content */}
-      <div className="relative z-10 text-center space-y-8 px-4 max-w-4xl">
-        {/* Profile Info */}
-        <div className="space-y-4 animate-fade-in">
-          <div className="flex items-center justify-center gap-2 text-muted-foreground">
-            <MapPin className="w-4 h-4" />
-            <span>New Delhi, India</span>
-          </div>
-          
-          <h1 className="text-6xl md:text-8xl font-bold neon-text mb-4">
-            Sachin Singh
+        <div className="opacity-0 animate-fade-up animate-delay-200">
+          <h1 className="text-6xl sm:text-7xl md:text-[80px] leading-[0.95] tracking-tight font-medium text-transparent bg-clip-text bg-gradient-to-b from-ink via-ink to-ink/50 pb-2">
+            Sachin
+            <br />
+            Singh
           </h1>
-          
-          <div className="h-20 flex items-center justify-center">
-            <h2 className="text-2xl md:text-4xl font-bold text-primary typing">
-              {displayText}
-            </h2>
-          </div>
-          
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            M.Tech Computer Science @ IIT Jodhpur | Building innovative solutions with AI, 
-            full-stack development, and cloud technologies
+          <p className="mt-6 text-lg md:text-xl text-ink/50 max-w-md font-light tracking-wide leading-relaxed">
+            PhD student in Computer Science at IIT Jodhpur. Building applied AI for healthcare devices and education — from clinical systems to teacher-in-the-loop platforms.
           </p>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up">
-          <a 
-            href="https://drive.google.com/file/d/1gBS8R7Rz4rkNwiFAzANTdndIANK143Ys/view?usp=sharing"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block"
+        <div className="flex flex-wrap items-center gap-4 md:gap-6 opacity-0 animate-fade-up animate-delay-300">
+          <a
+            href="#work"
+            className="group flex items-center gap-2 bg-ink text-canvas px-6 py-3.5 rounded-full font-medium text-sm hover:scale-[1.02] transition-transform duration-200"
           >
-            <Button variant="neon" size="hero" className="group">
-              <Download className="w-5 h-5 group-hover:animate-bounce" />
-              Download Resume
-            </Button>
+            <span>View Work</span>
+            <ArrowDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
           </a>
-          <Button 
-            variant="glass" 
-            size="hero" 
-            onClick={scrollToContact}
-            className="cursor-pointer hover:scale-105 transition-transform"
-          >
-            <Mail className="w-5 h-5" />
-            Get In Touch
-          </Button>
-        </div>
-
-        {/* Social Links */}
-        <div className="flex justify-center gap-6 animate-fade-in">
-          <a 
-            href="https://github.com/sachinsingh2156"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 glass rounded-full hover-glow group"
-          >
-            <Github className="w-6 h-6 text-primary group-hover:text-primary-glow transition-colors" />
-          </a>
-          <a 
-            href="https://linkedin.com/in/sachinsingh2156"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 glass rounded-full hover-glow group"
-          >
-            <Linkedin className="w-6 h-6 text-primary group-hover:text-primary-glow transition-colors" />
-          </a>
-          <a 
-            href="mailto:sachinsingh2156@gmail.com"
-            className="p-3 glass rounded-full hover-glow group"
-          >
-            <Mail className="w-6 h-6 text-primary group-hover:text-primary-glow transition-colors" />
-          </a>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-primary rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse" />
+          <div className="flex items-center gap-4">
+            {socials.map(({ label, href, icon: Icon }) => (
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                target={href.startsWith('http') ? '_blank' : undefined}
+                rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                className="text-ink/40 hover:text-tiffany-ink transition-colors"
+              >
+                <Icon className="w-5 h-5" />
+              </a>
+            ))}
           </div>
         </div>
       </div>
-    </section>
+
+      {/* Right column: iOS widgets */}
+      <div className="md:col-span-5 order-2 opacity-0 animate-fade-up animate-delay-300">
+        <div className="relative w-full grid grid-cols-2 gap-4">
+          {/* Profile card */}
+          <a
+            href="#about"
+            className="ios-glass rounded-[32px] p-5 sm:p-6 col-span-2 flex items-center justify-between hover:bg-ink/5 transition-colors duration-500 group tiffany-glow"
+          >
+            <div className="flex items-center gap-4 min-w-0">
+              <div className="w-14 h-14 shrink-0 rounded-full bg-gradient-to-tr from-tiffany to-blue-600 p-[2px]">
+                <div className="w-full h-full rounded-full bg-canvas flex items-center justify-center overflow-hidden">
+                  <span className="font-medium text-xl text-ink">SS</span>
+                </div>
+              </div>
+              <div className="min-w-0">
+                <h3 className="text-ink font-medium text-base tracking-tight">Software Engineer (PhD Scholar)</h3>
+                <p className="text-ink/40 text-xs mt-0.5">AI for Health · AI for Education · IIT Jodhpur</p>
+              </div>
+            </div>
+            <div className="h-10 w-10 shrink-0 rounded-full bg-ink/5 flex items-center justify-center group-hover:bg-tiffany group-hover:text-black transition-all duration-300 text-ink/30">
+              <ArrowUpRight className="w-5 h-5" />
+            </div>
+          </a>
+
+          {/* Stats widget */}
+          <div className="ios-glass rounded-[32px] p-5 flex flex-col justify-between gap-6 hover:bg-ink/5 transition-colors">
+            <div className="p-2 w-fit rounded-xl bg-ink/5 text-tiffany-ink">
+              <Layers className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="text-2xl font-medium text-ink tracking-tight">5</div>
+              <div className="text-xs text-ink/40 mt-1">Publications</div>
+            </div>
+          </div>
+
+          {/* Theme toggle widget — the real site theme switch */}
+          <div className="ios-glass rounded-[32px] p-5 flex flex-col justify-between gap-6 hover:bg-ink/5 transition-colors">
+            <div className="flex justify-between items-start w-full">
+              <div className="p-2 rounded-xl bg-ink/5 text-ink/60">
+                {isDark ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+              </div>
+              <ThemeSwitch />
+            </div>
+            <div>
+              <div className="text-sm font-medium text-ink tracking-tight">Dark Mode</div>
+              <div className="text-[10px] text-ink/40 mt-1">{isSystem ? 'System Default' : isDark ? 'On' : 'Off'}</div>
+            </div>
+          </div>
+
+          {/* Stack widget */}
+          <div className="ios-glass rounded-[32px] col-span-2 p-6 flex items-center justify-between relative overflow-hidden group">
+            <div className="relative z-10">
+              <h4 className="text-ink font-medium text-lg tracking-tight">Experience</h4>
+              <div className="flex gap-3 mt-3">
+                {stack.map(({ label, icon: Icon }) => (
+                  <Icon key={label} aria-label={label} className="w-5 h-5 text-ink/60 hover:text-tiffany-ink transition-colors" />
+                ))}
+              </div>
+            </div>
+            <div className="relative z-10 text-right">
+              <div className="text-2xl font-medium text-ink tracking-tight">1500+</div>
+              <div className="text-xs text-ink/40 mt-1">OERs in public repository</div>
+            </div>
+            <div className="absolute right-[-20px] bottom-[-40px] w-32 h-32 bg-gradient-to-br from-tiffany to-transparent rounded-full opacity-20 blur-2xl group-hover:opacity-30 transition-opacity duration-500" />
+          </div>
+        </div>
+      </div>
+    </main>
   );
 };
 
