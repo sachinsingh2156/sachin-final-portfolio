@@ -1,11 +1,10 @@
 import { useState, type FormEvent } from 'react';
-import { AlertCircle, ArrowUpRight, CheckCircle, Mail, MapPin, Phone, Send, Globe } from 'lucide-react';
+import { AlertCircle, ArrowUpRight, CheckCircle, Mail, MapPin, Send, Globe } from 'lucide-react';
 import SectionHeader from './SectionHeader';
 import { socials } from '@/lib/profile';
 
 const contactInfo = [
   { icon: Mail, label: 'Email', value: 'sachinsingh2156@gmail.com', href: 'mailto:sachinsingh2156@gmail.com' },
-  { icon: Phone, label: 'Phone', value: '+91-9971073804', href: 'tel:+919971073804' },
   { icon: MapPin, label: 'Location', value: 'New Delhi, India', href: null },
   { icon: Globe, label: 'Website', value: 'sachinsingh.com.np', href: 'https://sachinsingh.com.np' },
 ];
