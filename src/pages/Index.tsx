@@ -7,6 +7,7 @@ import Publications from '../components/Publications';
 import Skills from '../components/Skills';
 import Experience from '../components/Experience';
 import Contact from '../components/Contact';
+import { BrandWordmark } from '../components/BrandLogo';
 import { useReveal } from '@/hooks/use-reveal';
 import { socials } from '@/lib/profile';
 
@@ -30,6 +31,9 @@ const Index = () => {
       <Contact />
 
       <footer className="relative z-10 w-full text-center py-12 border-t border-ink/5 mt-10">
+        <a href="#top" aria-label="Back to top" className="inline-flex mb-5 opacity-90 hover:opacity-100 transition-opacity">
+          <BrandWordmark className="h-10 w-auto max-w-[220px] object-contain rounded-lg" />
+        </a>
         <p className="text-[10px] text-ink/30 uppercase tracking-widest mb-4">Designed and built by Sachin Singh</p>
         <div className="flex justify-center gap-6 mb-6">
           {socials.map(({ label, href }) => (

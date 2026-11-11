@@ -41,6 +41,18 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
+
+    // Keep the tab favicon in sync with the site theme (not only OS preference)
+    const href = theme === 'dark' ? '/favicon-dark.png' : '/favicon-light.png';
+    let link = document.querySelector<HTMLLinkElement>("link[rel='icon'][data-theme-favicon]");
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      link.type = 'image/png';
+      link.dataset.themeFavicon = 'true';
+      document.head.appendChild(link);
+    }
+    link.href = href;
   }, [theme]);
 
   const setTheme = useCallback((next: Theme) => {

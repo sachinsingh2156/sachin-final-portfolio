@@ -1,5 +1,6 @@
 import { ArrowDown, ArrowUpRight, Code2, Cpu, Database, Layers, Moon, Sun, Cloud } from 'lucide-react';
 import { useTheme } from '@/hooks/use-theme';
+import { BrandMark } from './BrandLogo';
 import { ThemeSwitch } from './ThemeToggle';
 import { socials } from '@/lib/profile';
 
@@ -75,8 +76,8 @@ const Hero = () => {
           >
             <div className="flex items-center gap-4 min-w-0">
               <div className="w-14 h-14 shrink-0 rounded-full bg-gradient-to-tr from-tiffany to-blue-600 p-[2px]">
-                <div className="w-full h-full rounded-full bg-canvas flex items-center justify-center overflow-hidden">
-                  <span className="font-medium text-xl text-ink">SS</span>
+                <div className="w-full h-full rounded-full bg-canvas overflow-hidden">
+                  <BrandMark className="h-full w-full object-cover" />
                 </div>
               </div>
               <div className="min-w-0">

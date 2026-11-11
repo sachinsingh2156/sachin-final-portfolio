@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { BrandMark } from './BrandLogo';
 import { ThemeIconButton } from './ThemeToggle';
 
 const navItems = [
@@ -32,6 +33,13 @@ const Navigation = () => {
   return (
     <nav className="fixed top-4 md:top-6 inset-x-0 z-50 flex justify-center px-3 pointer-events-none">
       <div className="pointer-events-auto opacity-0 animate-fade-up ios-glass rounded-full px-1.5 py-1.5 flex items-center gap-0.5 md:gap-1 shadow-2xl">
+        <a
+          href="#top"
+          aria-label="Sachin Singh — home"
+          className="shrink-0 ml-0.5 mr-0.5 rounded-full overflow-hidden ring-1 ring-ink/10 hover:ring-tiffany/40 transition-all"
+        >
+          <BrandMark className="h-8 w-8 object-cover" />
+        </a>
         {navItems.map((item) => {
           const isActive = active === item.href.slice(1);
           return (
